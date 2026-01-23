@@ -3,7 +3,20 @@
 import styles from './Hero.module.css';
 import { motion } from 'framer-motion';
 
-export default function Hero() {
+const Hero = () => {
+    const dob = new Date('2001-03-03');
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const m = today.getMonth() - dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+
+    // Experience calculation (Start: Aug 2023)
+    const startDate = new Date('2023-07-17');
+    const diffInMs = today.getTime() - startDate.getTime();
+    const experience = (diffInMs / (1000 * 60 * 60 * 24 * 365.25)).toFixed(1);
+
     return (
         <section className={styles.hero}>
             <div className={styles.bgGlow}></div>
@@ -68,12 +81,12 @@ export default function Hero() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                 >
                     <div className={styles.statGroup}>
-                        <span className={styles.statValue}>24</span>
+                        <span className={styles.statValue}>{age}</span>
                         <span className={styles.statLabel}>Years Old</span>
                     </div>
                     <div className={styles.divider}></div>
                     <div className={styles.statGroup}>
-                        <span className={styles.statValue}>2.6</span>
+                        <span className={styles.statValue}>{experience}</span>
                         <span className={styles.statLabel}>Years Exp.</span>
                     </div>
                 </motion.div>
@@ -119,3 +132,5 @@ export default function Hero() {
         </section>
     );
 }
+
+export default Hero;
