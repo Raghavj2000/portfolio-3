@@ -4,6 +4,10 @@ import styles from './Contact.module.css';
 import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import dynamic from 'next/dynamic';
+
+const ContactMap = dynamic(() => import('./Map'), { ssr: false });
+
 
 export default function Contact() {
     const formRef = useRef<HTMLFormElement>(null);
@@ -159,7 +163,7 @@ export default function Contact() {
                         </form>
                     </motion.div>
 
-                    {/* Social Tiles - Right Side */}
+                    {/* Social Tiles & Map - Right Side */}
                     <div className={styles.socialGrid}>
                         <motion.a
                             href="mailto:raghavjayateerth@gmail.com"
@@ -214,7 +218,19 @@ export default function Contact() {
                             </div>
                             <div className={styles.arrow}>↗</div>
                         </motion.a>
+
+                        <motion.div
+                            className={styles.mapWrapper}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.7, duration: 0.5 }}
+                        >
+                            <ContactMap />
+                        </motion.div>
                     </div>
+
+
 
                 </div>
 
